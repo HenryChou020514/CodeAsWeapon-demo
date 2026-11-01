@@ -12,7 +12,7 @@ function taskStatusLabel(status){
   return taskFailureStatuses.has(status)?`Failure${reasons[status]?` · ${reasons[status]}`:""}`:(labels[status]||status);
 }
 Object.assign(labels,{not_started:"Not started",cancelled:"Cancelled"});
-const phases = {generate_graph:"Generate main DAG",generate_subgraph:"Generate child DAG",generate_code:"Generate code / action",execute:"Execute action",assess:"Evidence review and replanning"};
+const phases = {generate_graph:"Generate High-Level Attack Graph",generate_subgraph:"Generate Low-Level Attack Graph",generate_code:"Generate code / action",execute:"Execute action",assess:"Evidence review and replanning"};
 const eventLabels = {"run.started":"Experiment started","run.finished":"Run finished","stage.started":"Stage started","stage.completed":"Stage completed","stage.failed":"Stage error","generation.attempt":"Generate / repair","validation.failed":"Validation failed","llm.started":"Waiting for LLM response","llm.completed":"LLM Response received","llm.failed":"LLM Request failed","node.selected":"Selected Node","execution.started":"Execution started","execution.completed":"Execution result","graph.updated":"DAG updated","artifact.saved":"Coder Artifact saved","iteration.started":"New iteration"};
 Object.assign(eventLabels,{"domains.loaded":"Domain knowledge loaded","assessment.corrected":"Runtime review correction","llm.global_block":"Provider-wide block","assessment.prepared":"Evidence review"});
 Object.assign(eventLabels,{"json.repaired":"JSON format repaired by runtime","json.rejected":"JSON requires model correction"});
@@ -238,7 +238,7 @@ async function renderGraph({forceFocus=false,animate=true,cameraDuration=420}={}
     if(graphWindow&&kind!==document.body.dataset.graphKind)return;
     const panel=graphPanels[kind],graph=NativeDAG.presentationGraph(snapshot,kind==="main"?snapshot?.main:snapshot?.children[selectedChild]);
     panelElement(kind,"graph-count").textContent=graph?`${graph.nodes.length} nodes · ${graph.edges.length} edges${graph.task_evaluation?.status==='passed'?' · ✓ Task success verified':graph.display_ended?' · Run ended':''}`:"0 nodes · 0 edges";
-    if(!graph){if(panel.source==='empty')return;panel.ticket=(panel.ticket||0)+1;DAGMotion.stop(panelElement(kind,"graph-canvas"));DAGMotion.stop(panelElement(kind,"graph-scroll"));panel.source='empty';panel.layout=null;panel.graph=null;panel.displaySize=null;empty(panelElement(kind,"graph-canvas"),kind==="main"?"Waiting for main DAG":"No child graph generated DAG","After generation and saving, the graph appears here automatically.");UIMotion.enter(panelElement(kind,"graph-canvas").firstChild);return;}
+    if(!graph){if(panel.source==='empty')return;panel.ticket=(panel.ticket||0)+1;DAGMotion.stop(panelElement(kind,"graph-canvas"));DAGMotion.stop(panelElement(kind,"graph-scroll"));panel.source='empty';panel.layout=null;panel.graph=null;panel.displaySize=null;empty(panelElement(kind,"graph-canvas"),kind==="main"?"Waiting for High-Level Attack Graph":"No Low-Level Attack Graph generated yet","After generation and saving, the graph appears here automatically.");UIMotion.enter(panelElement(kind,"graph-canvas").firstChild);return;}
     const nodeWidth=Math.max(220,Math.min(420,panelElement(kind,"graph-scroll").clientWidth-80));
     const source=JSON.stringify([graph,nodeWidth]),current=graph.current_node_id;
     if(panel.source!==source){
@@ -298,7 +298,7 @@ function renderSelectedNodePanel(){
   if(!replayMode||graphWindow)return;
   const panel=$("selected-node-panel"),container=$("selected-node-detail"),view=currentView();
   const node=view?.graph?.nodes.find(item=>item.id===selectedNode);
-  text("selected-node-heading",node?`${mode==="child"?"Child graph":"Main graph"} · ${node.id}`:"No node selected");
+  text("selected-node-heading",node?`${mode==="child"?"Low-Level Attack Graph":"High-Level Attack Graph"} · ${node.id}`:"No node selected");
   const status=$("selected-node-status");
   if(node&&snapshot){const display=NativeDAG.nodeState(node,NativeDAG.presentationGraph(snapshot,view));status.textContent=display.label;status.className=`badge ${display.key}`;status.style.color=display.text;status.style.borderColor=display.stroke;}
   else{status.textContent="Not selected";status.className="badge";status.style.color="";status.style.borderColor="";}
@@ -395,7 +395,7 @@ window.addEventListener('message',event=>{
   for(const [id,value] of [['experiment',data.experiment],['task',data.task]]){
     const option=element('option',value);option.value=value;$(id).replaceChildren(option);$(id).value=value;
   }
-  document.title=`${mode==='main'?'Main graph':'Child graph'} · ${data.experiment} · ${data.task}`;
+  document.title=`${mode==='main'?'High-Level Attack Graph':'Low-Level Attack Graph'} · ${data.experiment} · ${data.task}`;
   render().catch(error=>notice(error.message));
 });
 window.addEventListener('beforeunload',()=>{if(!graphWindow)for(const viewer of graphWindows.values())if(!viewer.closed)viewer.postMessage({type:'graph.viewer.closed'},location.origin);});
@@ -432,7 +432,7 @@ if(graphWindow){
   for(const kind of ['main','child']){panelElement(kind,'window-expand').textContent='Fullscreen';panelElement(kind,'window-expand').title='Toggle browser fullscreen';}
   document.addEventListener('fullscreenchange',()=>panelElement(mode,'window-expand').textContent=document.fullscreenElement?'Exit fullscreen':'Fullscreen');
   window.opener?.postMessage({type:'graph.viewer.ready'},location.origin);
-  if(!window.opener)notice('Open this view using the main or child graph"New window"button.');
+  if(!window.opener)notice('Open this view using the main or Low-Level Attack Graph"New window"button.');
   const sourceCheck=setInterval(()=>{
     if(window.opener&&!window.opener.closed)return;
     clearInterval(sourceCheck);

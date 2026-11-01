@@ -161,16 +161,16 @@ const Replay={
     DAGMotion.stop(list);delete list.dataset.current;
     this.displayedOrder=group?group.children:this.orderGroups;this.orderRows=[];
     list.replaceChildren();list.scrollTop=0;list.scrollLeft=0;
-    text('replay-order-title',group?`Child graph · ${group.node_id}`:'Main graph node execution order');
+    text('replay-order-title',group?`Low-Level Attack Graph · ${group.node_id}`:'High-Level Attack Graph node execution order');
     $("replay-order-back").hidden=!group;
-    list.setAttribute('aria-label',group?`${group.node_id} child execution order`:`${$("task").value} main graph Node execution order`);
+    list.setAttribute('aria-label',group?`${group.node_id} child execution order`:`${$("task").value} High-Level Attack Graph Node execution order`);
     text('replay-order-count',group?`${group.children.length} steps`:`${this.order?.tasks.length||0} tasks · ${this.orderGroups.length} steps`);
     let lane=null,track=null,laneKey=null;
     for(const entry of this.displayedOrder){
       const nextKey=JSON.stringify([entry.task,entry.run_id]);
       if(nextKey!==laneKey){
         lane=element('section',undefined,'sequence-task');lane.append(element('strong',entry.task,'sequence-task-label'));
-        track=element('ol',undefined,'sequence-track');track.setAttribute('aria-label',`${entry.task} ${group?'Child graph':'Main graph'} order`);lane.append(track);list.append(lane);laneKey=nextKey;
+        track=element('ol',undefined,'sequence-track');track.setAttribute('aria-label',`${entry.task} ${group?'Low-Level Attack Graph':'High-Level Attack Graph'} order`);lane.append(track);list.append(lane);laneKey=nextKey;
       }
       const item=element('li',undefined,'sequence-step'),button=element('button',undefined,'sequence-node');button.type='button';
       const label=element('span',entry.node_id,'sequence-node-label');
@@ -182,7 +182,7 @@ const Replay={
       button.onclick=event=>{event.stopPropagation();this.jumpTo(entry);};
       const actions=element('div',undefined,'sequence-node-actions');
       if(!group&&entry.children.length){
-        const drill=element('button','Child graph','sequence-drill');drill.type='button';drill.title='View child execution order';
+        const drill=element('button','Low-Level Attack Graph','sequence-drill');drill.type='button';drill.title='View child execution order';
         drill.setAttribute('aria-label',`View ${entry.node_id} child execution order`);
         drill.onclick=event=>{event.stopPropagation();this.orderScope=entry.key;this.drawOrder({animate:true});};actions.append(drill);
       }
@@ -216,7 +216,7 @@ const Replay={
     });
     const entry=this.order.entries[current];
     const visiblePosition=this.orderRows.findIndex(row=>row.getAttribute('aria-current')==='step');
-    text('replay-order-position',`${ended?'Final position':'Current position'} · ${this.orderScope?'Child graph':'Main graph'}${visiblePosition>=0?` ${visiblePosition+1} / ${this.displayedOrder.length}`:''} · ${task}`);
+    text('replay-order-position',`${ended?'Final position':'Current position'} · ${this.orderScope?'Low-Level Attack Graph':'High-Level Attack Graph'}${visiblePosition>=0?` ${visiblePosition+1} / ${this.displayedOrder.length}`:''} · ${task}`);
     const nodeId=frame?.node_id||entry?.node_id;
     const node=[snapshot?.main?.graph,...Object.values(snapshot?.children||{}).map(view=>view?.graph)].filter(Boolean).flatMap(graph=>graph.nodes).find(node=>node.id===nodeId);
     text('replay-order-current',node?.id||entry?.node_id||'No node entered yet');
@@ -283,7 +283,7 @@ const Replay={
     this.steps=[];
     DAGMotion.stop($("replay-order-list"));
     this.order=null;this.orderRows=[];this.orderGroups=[];this.displayedOrder=[];this.orderScope=orderScope;$("replay-order-list").replaceChildren();delete $("replay-order-list").dataset.current;
-    $("replay-order-back").hidden=true;text('replay-order-title','Main graph node execution order');
+    $("replay-order-back").hidden=true;text('replay-order-title','High-Level Attack Graph node execution order');
     text('replay-order-count','Loading');text('replay-order-current','Waiting to load');text('replay-order-position','Current position');
     text("replay-result","Loading");$("replay-result").className="badge";delete $("replay-result").dataset.status;
     $("replay-reason").hidden=true;if($("replay-reason-dialog").open)$("replay-reason-dialog").close();
