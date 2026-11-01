@@ -237,7 +237,7 @@ const Replay={
     text('replay-order-position',`${ended?'Final position':'Current position'} · ${this.orderScope?'Child graph':'Main graph'}${visiblePosition>=0?` ${visiblePosition+1} / ${this.displayedOrder.length}`:''} · ${task}`);
     const nodeId=frame?.node_id||entry?.node_id;
     const node=[snapshot?.main?.graph,...Object.values(snapshot?.children||{}).map(view=>view?.graph)].filter(Boolean).flatMap(graph=>graph.nodes).find(node=>node.id===nodeId);
-    text('replay-order-current',node?.id||entry?.node_id||'No node entered yet Node');
+    text('replay-order-current',node?.id||entry?.node_id||'No node entered yet');
     const list=$("replay-order-list"),row=this.orderRows.find(button=>button.getAttribute('aria-current')==='step'),key=row?.dataset.entryId||'';
     if(row&&list.dataset.current!==key){
       const box=row.getBoundingClientRect(),viewport=list.getBoundingClientRect();
