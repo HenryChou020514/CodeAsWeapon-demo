@@ -50,17 +50,5 @@ window.ReplayDataSource=(()=>{
     return {runs:data.runs.map(item=>({id:item.id,started_at:item.events[0]?.timestamp,status:item.status,events:item.events.length})),
       run_id:run.id,recorded:run.frames.some(Boolean),events:structuredClone(run.events),frame_count:run.events.length};
   }
-  async function statisticsURL(params){
-    const experiments=await catalog(),entry=experiments.find(item=>item.id===params.get('experiment'));
-    if(!entry)throw new Error('Experiment not found in this demo');
-    let file=entry.statistics;
-    if(params.has('task')){
-      const data=await taskData(entry.id,params.get('task'));
-      const run=data.runs.find(item=>item.id===(params.get('run')||data.runs.at(-1)?.id));
-      if(!run)throw new Error('Run not found in this demo');
-      file=run.statistics;
-    }
-    return new URL(file,base);
-  }
-  return Object.freeze({request,statisticsURL,pageURL:()=>new URL('index.html',base)});
+  return Object.freeze({request,pageURL:()=>new URL('index.html',base)});
 })();

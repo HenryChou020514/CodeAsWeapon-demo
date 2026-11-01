@@ -1,22 +1,4 @@
 "use strict";
-async function exportStatistics(scope,button){
-  const experiment=$("experiment").value;if(!experiment)return;
-  const params=new URLSearchParams({experiment});
-  if(scope==='task'){
-    if(!$("task").value||!Replay.manifest)return;
-    params.set('task',$("task").value);
-    if(Replay.manifest.run_id)params.set('run',Replay.manifest.run_id);
-  }
-  button.disabled=true;
-  try{
-    const endpoint=window.ReplayDataSource?await window.ReplayDataSource.statisticsURL(params):`/api/statistics?${params}`;
-    const response=await fetch(endpoint);
-    if(!response.ok)throw new Error(`Statistics export failed (${response.status})`);
-    const url=URL.createObjectURL(await response.blob()),link=document.createElement('a');
-    link.href=url;link.download=`${experiment}${scope==='task'?`_${params.get('task')}`:''}_statistics.xlsx`;
-    document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);
-  }catch(error){notice(error.message);}finally{button.disabled=false;}
-}
 const orderLabelMeasure=document.createElement('canvas').getContext('2d');
 function replayOutcome(finished){
   const status=finished?.status,phase=finished?.phase||'',reason=typeof finished?.message==='string'?finished.message.trim():'';
@@ -384,8 +366,6 @@ const Replay={
     this.playing=true;$("replay-play").textContent="Pause";this.schedule();
   }
 };
-document.getElementById('export-task-statistics').onclick=event=>exportStatistics('task',event.currentTarget);
-document.getElementById('export-experiment-statistics').onclick=event=>exportStatistics('experiment',event.currentTarget);
 document.getElementById("replay-play").addEventListener("click",()=>Replay.toggle());
 document.getElementById("replay-first").addEventListener("click",()=>{Replay.pause();if(Replay.manifest?.frame_count)Replay.seek(0);});
 document.getElementById("replay-last").addEventListener("click",()=>{Replay.pause();if(Replay.manifest?.frame_count)Replay.seek(Replay.manifest.frame_count-1);});
