@@ -11,172 +11,12 @@
     ],
     "tasks": [
         {
-            "task": "apb-001",
-            "runs": 1,
-            "events": 1610,
-            "frames": 1610,
-            "status": "unresolved",
-            "bytes": 24229642
-        },
-        {
-            "task": "apb-002",
-            "runs": 1,
-            "events": 1099,
-            "frames": 1099,
-            "status": "unresolved",
-            "bytes": 14899765
-        },
-        {
-            "task": "apb-003",
-            "runs": 1,
-            "events": 504,
-            "frames": 504,
-            "status": "unresolved",
-            "bytes": 5690802
-        },
-        {
-            "task": "apb-004",
-            "runs": 1,
-            "events": 954,
-            "frames": 954,
-            "status": "unresolved",
-            "bytes": 12589671
-        },
-        {
-            "task": "apb-005",
-            "runs": 1,
-            "events": 885,
-            "frames": 885,
-            "status": "unresolved",
-            "bytes": 11126459
-        },
-        {
-            "task": "apb-006",
-            "runs": 1,
-            "events": 1757,
-            "frames": 1757,
-            "status": "unresolved",
-            "bytes": 29633626
-        },
-        {
-            "task": "apb-007",
-            "runs": 1,
-            "events": 1259,
-            "frames": 1259,
-            "status": "unresolved",
-            "bytes": 17766557
-        },
-        {
-            "task": "apb-008",
-            "runs": 1,
-            "events": 1115,
-            "frames": 1115,
-            "status": "unresolved",
-            "bytes": 12949096
-        },
-        {
             "task": "apb-009",
             "runs": 1,
             "events": 288,
             "frames": 288,
             "status": "completed",
-            "bytes": 2541201
-        },
-        {
-            "task": "apb-010",
-            "runs": 1,
-            "events": 1209,
-            "frames": 1209,
-            "status": "unresolved",
-            "bytes": 16974652
-        },
-        {
-            "task": "apb-011",
-            "runs": 1,
-            "events": 234,
-            "frames": 234,
-            "status": "completed",
-            "bytes": 1946831
-        },
-        {
-            "task": "apb-012",
-            "runs": 1,
-            "events": 1000,
-            "frames": 1000,
-            "status": "unresolved",
-            "bytes": 12757923
-        },
-        {
-            "task": "apb-013",
-            "runs": 1,
-            "events": 611,
-            "frames": 611,
-            "status": "completed",
-            "bytes": 6372992
-        },
-        {
-            "task": "apb-014",
-            "runs": 1,
-            "events": 1649,
-            "frames": 1649,
-            "status": "unresolved",
-            "bytes": 23474417
-        },
-        {
-            "task": "apb-015",
-            "runs": 1,
-            "events": 1008,
-            "frames": 1008,
-            "status": "unresolved",
-            "bytes": 12818653
-        },
-        {
-            "task": "apb-016",
-            "runs": 1,
-            "events": 1190,
-            "frames": 1190,
-            "status": "failed",
-            "bytes": 16981496
-        },
-        {
-            "task": "apb-017",
-            "runs": 1,
-            "events": 191,
-            "frames": 191,
-            "status": "completed",
-            "bytes": 1504860
-        },
-        {
-            "task": "apb-018",
-            "runs": 1,
-            "events": 824,
-            "frames": 824,
-            "status": "unresolved",
-            "bytes": 10153603
-        },
-        {
-            "task": "apb-019",
-            "runs": 1,
-            "events": 25,
-            "frames": 25,
-            "status": "failed",
-            "bytes": 103188
-        },
-        {
-            "task": "apb-020",
-            "runs": 1,
-            "events": 996,
-            "frames": 996,
-            "status": "unresolved",
-            "bytes": 12849181
-        },
-        {
-            "task": "apb-021",
-            "runs": 1,
-            "events": 378,
-            "frames": 378,
-            "status": "completed",
-            "bytes": 3465169
+            "bytes": 2541104
         },
         {
             "task": "apb-022",
@@ -184,31 +24,7 @@
             "events": 786,
             "frames": 786,
             "status": "completed",
-            "bytes": 9059804
-        },
-        {
-            "task": "apb-023",
-            "runs": 1,
-            "events": 307,
-            "frames": 307,
-            "status": "completed",
-            "bytes": 2666928
-        },
-        {
-            "task": "apb-024",
-            "runs": 1,
-            "events": 822,
-            "frames": 822,
-            "status": "completed",
-            "bytes": 9035793
-        },
-        {
-            "task": "apb-025",
-            "runs": 1,
-            "events": 25,
-            "frames": 25,
-            "status": "failed",
-            "bytes": 103362
+            "bytes": 9059707
         },
         {
             "task": "apb-026",
@@ -216,55 +32,7 @@
             "events": 796,
             "frames": 796,
             "status": "completed",
-            "bytes": 8510769
-        },
-        {
-            "task": "apb-027",
-            "runs": 1,
-            "events": 1604,
-            "frames": 1604,
-            "status": "unresolved",
-            "bytes": 25300906
-        },
-        {
-            "task": "apb-028",
-            "runs": 1,
-            "events": 213,
-            "frames": 213,
-            "status": "completed",
-            "bytes": 1777601
-        },
-        {
-            "task": "apb-029",
-            "runs": 1,
-            "events": 449,
-            "frames": 449,
-            "status": "completed",
-            "bytes": 4232968
-        },
-        {
-            "task": "apb-030",
-            "runs": 1,
-            "events": 1111,
-            "frames": 1111,
-            "status": "unresolved",
-            "bytes": 14423082
-        },
-        {
-            "task": "apb-031",
-            "runs": 1,
-            "events": 242,
-            "frames": 242,
-            "status": "completed",
-            "bytes": 2064790
-        },
-        {
-            "task": "apb-032",
-            "runs": 1,
-            "events": 369,
-            "frames": 369,
-            "status": "completed",
-            "bytes": 3308670
+            "bytes": 8510672
         },
         {
             "task": "apb-033",
@@ -272,12 +40,12 @@
             "events": 1411,
             "frames": 1411,
             "status": "unresolved",
-            "bytes": 20714450
+            "bytes": 20714353
         }
     ],
     "outcomes": {
-        "unresolved": 17,
-        "completed": 13,
-        "failed": 3
-    }
+        "completed": 3,
+        "unresolved": 1
+    },
+    "selection": "Representative demo subset; full Exp1 recordings remain in the private project."
 }
